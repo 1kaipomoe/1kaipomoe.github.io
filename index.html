@@ -74,6 +74,24 @@ section p {
   margin: 0 auto;
   line-height: 1.6;
 }
+    .btn {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  background: #e0a96d;     /* gold accent */
+  color: #111;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0.25rem 0.5rem;
+}
+.btn:hover { filter: brightness(0.95); }
+
+.btn.secondary {
+  background: transparent;
+  color: #e0a96d;
+  border: 2px solid #e0a96d;
+}
+.btn.secondary:hover { background: rgba(224,169,109,0.12); }
   </style>
 </head>
 <body>
@@ -99,7 +117,12 @@ section p {
 
 <section id="music">
   <h2>Music</h2>
-  <p>Links to Spotify, Apple Music, YouTube, or an embedded player will go here.</p>
+  <p>Listen to Kaipo Mo’e on your favorite platform.</p>
+<p>
+  <a class="btn" href="https://open.spotify.com/" target="_blank" rel="noopener">Spotify</a>
+  <a class="btn secondary" href="https://music.apple.com/" target="_blank" rel="noopener">Apple Music</a>
+  <a class="btn secondary" href="https://www.youtube.com/@kaipomoe" target="_blank" rel="noopener">YouTube</a>
+</p>
 </section>
 
 <section id="art">
