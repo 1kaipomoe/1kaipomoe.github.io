@@ -110,6 +110,12 @@
 
     /* Small helpers */
     .wrap { max-width: 1100px; margin: 0 auto; }
+    .embeds {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
   </style>
 </head>
 <body>
@@ -141,17 +147,35 @@
       </div>
     </section>
 
-    <section id="music">
-      <div class="wrap">
-        <h2>Music</h2>
-        <p>Listen to Kaipo Mo’e on your favorite platform.</p>
-        <p>
-          <a class="btn" href="https://open.spotify.com/artist/7CrqF9bBDu5UC8iCuLqtOF?si=GAGpqmfVR2WZlEBFsKrFKw" target="_blank" rel="noopener">Spotify</a>
-          <a class="btn secondary" href="https://music.apple.com/us/artist/kaipo-moe/1469973347" target="_blank" rel="noopener">Apple Music</a>
-          <a class="btn secondary" href="https://www.youtube.com/@kaipomoe" target="_blank" rel="noopener">YouTube</a>
-        </p>
-      </div>
-    </section>
+  <section id="music">
+  <div class="wrap">
+    <h2>Music</h2>
+    <p>Hear Kaipo Mo’e on Spotify and Apple Music.</p>
+
+    <div class="embeds">
+      <!-- Spotify -->
+      <iframe
+        style="border-radius:12px"
+        src="https://open.spotify.com/embed/artist/7CrqF9bBDu5UC8iCuLqtOF?utm_source=oembed"
+        width="100%" height="352" frameborder="0" allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+      </iframe>
+
+      <!-- Apple Music -->
+      <iframe
+        allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+        frameborder="0" height="352" style="width:100%;max-width:100%;overflow:hidden;border-radius:12px;"
+        sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+        src="https://embed.music.apple.com/us/artist/kaipo-moe/1469973347">
+      </iframe>
+    </div>
+
+    <p style="margin-top:1rem">
+      <a class="btn" href="https://open.spotify.com/artist/7CrqF9bBDu5UC8iCuLqtOF?si=GAGpqmfVR2WZlEBFsKrFKw" target="_blank" rel="noopener">Open in Spotify</a>
+      <a class="btn secondary" href="https://music.apple.com/us/artist/kaipo-moe/1469973347" target="_blank" rel="noopener">Open in Apple Music</a>
+    </p>
+  </div>
+</section>
 
     <section id="art">
       <div class="wrap">
