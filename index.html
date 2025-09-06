@@ -1,229 +1,202 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kaipo Mo’e</title>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
   <style>
+    /* Base */
+    :root { --gold:#e0a96d; --ink:#111; --slate:#1b263b; --night:#111827; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       line-height: 1.6;
       color: #222;
+      background:#000;
     }
+
+    /* Header & Nav */
     header {
       background: #111;
       color: #fff;
       padding: 1rem;
       text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid #222;
     }
-   nav {
-  margin-top: 0.5rem;
-}
+    header h2 { margin: 0; font-weight: 800; }
+    nav { margin-top: 0.5rem; }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: bold;
+    }
+    nav a:hover, nav a:focus { text-decoration: underline; }
 
-nav a {
-  color: #fff;
-  text-decoration: none;
-  margin: 0 1rem;
-  font-weight: bold;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
+    /* Hero */
     .hero {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 80vh;
+      min-height: 80vh;
       background: url('kaipo-hero.jpg') no-repeat center center/cover;
-      color: white;
+      color: #fff;
       text-align: center;
       flex-direction: column;
+      padding: 4rem 1.5rem;
     }
-    .hero h1 {
-      font-size: 3rem;
-      margin: 0;
-    }
-    .hero p {
-      font-size: 1.25rem;
-      margin-top: 1rem;
-    }
-    section {
-  padding: 4rem 2rem;
-  text-align: center;
-}
+    .hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); margin: 0; }
+    .hero p  { font-size: clamp(1rem, 2.5vw, 1.25rem); margin-top: 1rem; opacity: 0.95; }
 
-#about, #art {
-  background: #0d1b2a;
-  color: #fff;
-}
+    /* Sections */
+    section { padding: 4rem 2rem; text-align: center; }
+    #about, #art { background: var(--night); color: #f9fafb; }
+    #music, #contact { background: var(--slate); color: #fff; }
 
-#music, #contact {
-  background: #1b263b;
-  color: #fff;
-}
+    section h2 { color: var(--gold); margin: 0 0 1rem; font-size: clamp(1.5rem, 3.5vw, 2rem); }
+    section p  { max-width: 800px; margin: 0.75rem auto; line-height: 1.8; font-size: 1.1rem; }
 
-section h2 {
-  color: #e0a96d;
-  margin-bottom: 1rem;
-}
-
-section p {
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
+    /* Buttons */
     .btn {
-  display: inline-block;
-  padding: 0.75rem 1.25rem;
-  border-radius: 999px;
-  background: #e0a96d;     /* gold accent */
-  color: #111;
-  text-decoration: none;
-  font-weight: bold;
-  margin: 0.25rem 0.5rem;
-}
-.btn:hover { filter: brightness(0.95); }
+      display: inline-block;
+      padding: 0.75rem 1.25rem;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0.3rem 0.5rem;
+      transition: filter .15s ease;
+    }
+    .btn:hover { filter: brightness(0.95); }
+    .btn.secondary {
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+    }
+    .btn.secondary:hover { background: rgba(224,169,109,0.12); }
 
-.btn.secondary {
-  background: transparent;
-  color: #e0a96d;
-  border: 2px solid #e0a96d;
-}
-.btn.secondary:hover { background: rgba(224,169,109,0.12); }
+    /* Gallery */
     .gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
-}
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .gallery img { width: 100%; border-radius: 8px; display:block; }
 
-.gallery img {
-  width: 100%;
-  border-radius: 8px;
-}
-    #about {
-  background: #111827;        /* deep slate blue/black for contrast */
-  color: #f9fafb;             /* off-white text for softer readability */
-  padding: 5rem 2rem;
-  text-align: left;
-}
-
-#about h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2rem;
-  color: #e0a96d;             /* gold accent, matches your palette */
-}
-
-#about p {
-  max-width: 800px;
-  margin: 0 auto 1.5rem auto; /* centers text block with spacing */
-  line-height: 1.8;
-  font-size: 1.1rem;
-}
+    /* Footer */
     footer {
-  background: #111;
-  color: #aaa;
-  text-align: center;
-  padding: 2rem 1rem;
-  font-size: 0.9rem;
-}
+      background: #111;
+      color: #aaa;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.95rem;
+      border-top: 1px solid #222;
+    }
+    footer a { color: var(--gold); text-decoration: none; margin: 0 0.25rem; }
+    footer a:hover { text-decoration: underline; }
+    .social-icons a { color: var(--gold); margin: 0 0.5rem; font-size: 1.4rem; transition: color 0.2s; }
+    .social-icons a:hover { color: #fff; }
 
-footer a {
-  color: #e0a96d;
-  text-decoration: none;
-  margin: 0 0.25rem;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
-    .social-icons a {
-  color: #e0a96d;
-  margin: 0 0.5rem;
-  font-size: 1.5rem;
-  transition: color 0.3s;
-}
-
-.social-icons a:hover {
-  color: #fff;
-}
+    /* Small helpers */
+    .wrap { max-width: 1100px; margin: 0 auto; }
   </style>
 </head>
 <body>
+
   <header>
-  <h2>Kaipo Mo’e</h2>
-  <nav>
-  <a href="#home">Home</a>
-  <a href="#about">About</a>
-  <a href="#music">Music</a>
-  <a href="#art">Art</a>
-  <a href="#contact">Contact</a>
-</nav>
-</header>
+    <h2>Kaipo Mo’e</h2>
+    <nav aria-label="Primary">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#music">Music</a>
+      <a href="#art">Art</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-  <section id="home" class="hero">
-    <h1>Welcome to my world</h1>
-    <p>Music • Art • Vision</p>
-  </section>
-  <section id="about">
-  <h2>About</h2>
-  <p>I grew up surrounded by the stillness of the Hawaiian islands, then found myself in the neon heat of Las Vegas. My music lives in that in-between — where the warmth of Hawai‘i drifts into the electric pulse of West Coast pop.</p>
+  <main>
 
-<p>From the start, my creativity was restless. I sketched my heroes, sculpted small beings, stitched fabric into form, and painted stories onto blank surfaces. Each medium was an abstract doorway, another way to chase the visions in my head. Music and film arrived later, adding to the chorus of colors and shapes I had always been dreaming.</p>
+    <section id="home" class="hero" aria-label="Hero">
+      <h1>Welcome to my world</h1>
+      <p>Music • Art • Vision</p>
+    </section>
 
-<p>Now I make songs that blur the handmade with the digital, where melody becomes atmosphere and images unfold into worlds. Through AI-driven videos, I’m building a universe that is vivid, cinematic, and alive with mystery — an invitation to step inside and discover reflections of your own inner landscape.</p>
-</section>
+    <section id="about">
+      <div class="wrap">
+        <h2>About</h2>
+        <p>I grew up surrounded by the stillness of the Hawaiian islands, then found myself in the neon heat of Las Vegas. My music lives in that in-between — where the warmth of Hawai‘i drifts into the electric pulse of West Coast pop.</p>
+        <p>From the start, my creativity was restless. I sketched my heroes, sculpted small beings, stitched fabric into form, and painted stories onto blank surfaces. Each medium was an abstract doorway, another way to chase the visions in my head. Music and film arrived later, adding to the chorus of colors and shapes I had always been dreaming.</p>
+        <p>Now I make songs that blur the handmade with the digital, where melody becomes atmosphere and images unfold into worlds. Through AI-driven videos, I’m building a universe that is vivid, cinematic, and alive with mystery — an invitation to step inside and discover reflections of your own inner landscape.</p>
+      </div>
+    </section>
 
-<section id="music">
-  <h2>Music</h2>
-  <p>Listen to Kaipo Mo’e on your favorite platform.</p>
-<p>
-  <a class="btn" href="https://open.spotify.com/" target="_blank" rel="noopener">Spotify</a>
-  <a class="btn secondary" href="https://music.apple.com/" target="_blank" rel="noopener">Apple Music</a>
-  <a class="btn secondary" href="https://www.youtube.com/@kaipomoe" target="_blank" rel="noopener">YouTube</a>
-</p>
-</section>
+    <section id="music">
+      <div class="wrap">
+        <h2>Music</h2>
+        <p>Listen to Kaipo Mo’e on your favorite platform.</p>
+        <p>
+          <a class="btn" href="https://open.spotify.com/artist/7CrqF9bBDu5UC8iCuLqtOF?si=GAGpqmfVR2WZlEBFsKrFKw" target="_blank" rel="noopener">Spotify</a>
+          <a class="btn secondary" href="https://music.apple.com/us/artist/kaipo-moe/1469973347" target="_blank" rel="noopener">Apple Music</a>
+          <a class="btn secondary" href="https://www.youtube.com/@kaipomoe" target="_blank" rel="noopener">YouTube</a>
+        </p>
+      </div>
+    </section>
 
-<section id="art">
-  <h2>Art</h2>
-  <div class="gallery">
-  <img src="kaipo-hero.jpg" alt="Sample artwork 1">
-  <img src="kaipo-hero.jpg" alt="Sample artwork 2">
-  <img src="kaipo-hero.jpg" alt="Sample artwork 3">
-</div>
-</section>
+    <section id="art">
+      <div class="wrap">
+        <h2>Art</h2>
+        <div class="gallery">
+          <img src="kaipo-hero.jpg" alt="Artwork sample 1">
+          <img src="kaipo-hero.jpg" alt="Artwork sample 2">
+          <img src="kaipo-hero.jpg" alt="Artwork sample 3">
+        </div>
+      </div>
+    </section>
 
-<section id="contact">
-  <h2>Contact</h2>
- <section id="contact">
-  <h2>Contact</h2>
-  <p>For bookings, collaborations, or just to say hi:</p>
-  <p>
-    <a class="btn" href="mailto:1kaipomoe@gmail.com">Email Me</a>
-  </p>
-  <p>
-    <a class="btn secondary" href="https://www.instagram.com/kaipomoe?igsh=NjZvbDQwcG85Ynhw&utm_source=qr" target="_blank" rel="noopener">Instagram</a>
-    <a class="btn secondary" href="https://www.youtube.com/@kaipomoe" target="_blank" rel="noopener">YouTube</a>
-    <a class="btn secondary" href="https://open.spotify.com/artist/7CrqF9bBDu5UC8iCuLqtOF?si=GAGpqmfVR2WZlEBFsKrFKw" target="_blank" rel="noopener">Spotify</a>
-    <a class="btn secondary" href="https://music.apple.com/us/artist/kaipo-moe/1469973347" target="_blank" rel="noopener">Apple Music</a>
-    <a class="btn secondary" href="https://www.tiktok.com/@kaipomoe" target="_blank" rel="noopener">TikTok</a>
-  </p>
-</section>
-</section>
- <footer>
-  <p>© 2025 Kaipo Mo’e. All rights reserved.</p>
-  <p class="social-icons">
-    <a href="mailto:1kaipomoe@gmail.com"><i class="fas fa-envelope"></i></a>
-    <a href="https://www.instagram.com/kaipomoe?igsh=NjZvbDQwcG85Ynhw&utm_source=qr" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
-    <a href="https://www.youtube.com/@kaipomoe" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
-    <a href="https://open.spotify.com/artist/7CrqF9bBDu5UC8iCuLqtOF?si=GAGpqmfVR2WZlEBFsKrFKw" target="_blank" rel="noopener"><i class="fab fa-spotify"></i></a>
-    <a href="https://music.apple.com/us/artist/kaipo-moe/1469973347" target="_blank" rel="noopener"><i class="fab fa-apple"></i></a>
-    <a href="https://www.tiktok.com/@kaipomoe" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
-  </p>
-</footer>
+    <section id="contact">
+      <div class="wrap">
+        <h2>Contact</h2>
+        <p>For bookings, collaborations, or just to say hi:</p>
+        <p>
+          <a class="btn" href="mailto:1kaipomoe@gmail.com">Email Me</a>
+        </p>
+        <p>
+          <a class="btn secondary" href="https://www.instagram.com/kaipomoe?igsh=NjZvbDQwcG85Ynhw&utm_source=qr" target="_blank" rel="noopener">Instagram</a>
+          <a class="btn secondary" href="https://www.youtube.com/@kaipomoe" target="_blank" rel="noopener">YouTube</a>
+          <a class="btn secondary" href="https://open.spotify.com/artist/7CrqF9bBDu5UC8iCuLqtOF?si=GAGpqmfVR2WZlEBFsKrFKw" target="_blank" rel="noopener">Spotify</a>
+          <a class="btn secondary" href="https://music.apple.com/us/artist/kaipo-moe/1469973347" target="_blank" rel="noopener">Apple Music</a>
+          <a class="btn secondary" href="https://www.tiktok.com/@kaipomoe" target="_blank" rel="noopener">TikTok</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Kaipo Mo’e. All rights reserved.</p>
+    <p class="social-icons">
+      <a href="mailto:1kaipomoe@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://www.instagram.com/kaipomoe?igsh=NjZvbDQwcG85Ynhw&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.youtube.com/@kaipomoe" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://open.spotify.com/artist/7CrqF9bBDu5UC8iCuLqtOF?si=GAGpqmfVR2WZlEBFsKrFKw" target="_blank" rel="noopener" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+      <a href="https://music.apple.com/us/artist/kaipo-moe/1469973347" target="_blank" rel="noopener" aria-label="Apple Music"><i class="fab fa-apple"></i></a>
+      <a href="https://www.tiktok.com/@kaipomoe" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+    </p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
