@@ -33,16 +33,17 @@
 
     /* Hero */
     .hero {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 80vh;
-      background: url('kaipo-hero.jpg') no-repeat center center/cover;
-      color: #fff;
-      text-align: center;
-      flex-direction: column;
-      padding: 4rem 1.5rem;
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background: center / cover no-repeat url("/assets/images/hero.jpg?v=2");
+  color: #fff;
+  text-align: center;
+  flex-direction: column;
+  padding: 4rem 1.5rem;
+}
     .hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); margin: 0; }
     .hero p  { font-size: clamp(1rem, 2.5vw, 1.25rem); margin-top: 1rem; opacity: 0.95; }
 
