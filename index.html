@@ -8,15 +8,24 @@
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
+  <!-- Font: Manrope -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <!-- Site CSS -->
-  <link rel="stylesheet" href="/assets/css/style.css?v=10">
+  <link rel="stylesheet" href="/assets/css/style.css?v=11">
 </head>
 <body>
 
+  <!-- Header (Option A: translucent + blur) -->
   <header class="site-header">
-    <div class="container">
-      <h1 class="brand">Kaipo Mo’e</h1>
-      <nav aria-label="Primary">
+    <div class="container header-row">
+      <a class="brand" href="#home">Kaipo Mo’e</a>
+
+      <button class="nav-toggle" aria-label="Menu" aria-controls="primary-nav" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+
+      <nav id="primary-nav" aria-label="Primary">
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#music">Music</a>
@@ -28,35 +37,44 @@
 
   <main>
 
-    <!-- HERO (video with elegant frame, not zoomed) -->
+    <!-- HERO (video framed, not zoomed) -->
     <section id="home" class="hero" aria-label="Hero">
       <div class="hero-frame">
         <video class="hero-video"
+               src="/assets/video/hero.mp4"
                poster="/assets/images/hero-poster.jpg"
-               autoplay muted loop playsinline preload="metadata">
+               autoplay muted loop playsinline webkit-playsinline preload="metadata">
           <source src="/assets/video/hero.mp4" type="video/mp4">
         </video>
       </div>
 
       <div class="hero-overlay">
-        <h2 class="hero-title">Welcome to my world</h2>
-        <p class="hero-sub">Music • Art • Vision</p>
+        <h1 class="hero-title">Enter the Island</h1>
+        <div class="hero-divider" aria-hidden="true"></div>
+        <p class="hero-sub">
+          <a href="https://youtu.be/-4iri-fnqWo?si=0-OM_OJYbk8fIitu" target="_blank" rel="noopener">
+            Watch the full video “Island of My Mind” →
+          </a>
+        </p>
       </div>
     </section>
 
+    <!-- ABOUT -->
     <section id="about" class="section">
       <div class="container card">
-        <h3>About</h3>
-        <p>I grew up surrounded by the stillness of the Hawaiian islands, then found myself in the neon heat of Las Vegas. My music lives in that in-between — where the warmth of Hawai‘i drifts into the electric pulse of West Coast pop.</p>
-        <p>From the start, my creativity was restless. I sketched my heroes, sculpted small beings, stitched fabric into form, and painted stories onto blank surfaces. Each medium was an abstract doorway. Music and film arrived later, adding to the chorus.</p>
-        <p>Now I make songs that blur the handmade with the digital, where melody becomes atmosphere and images unfold into worlds.</p>
+        <h2>About</h2>
+        <p>I’m Kaipo — an artist from Hawai‘i, living between Las Vegas and California.</p>
+        <p>I make music, paint, draw, and sculpt — building worlds by hand and sound. Every song starts in Logic, recorded from my closet.</p>
+        <p>Lately, I’ve been merging my art with AI to create cinematic videos — a fusion of handmade and digital imagination.</p>
+        <p>Welcome to the island.</p>
       </div>
     </section>
 
+    <!-- MUSIC -->
     <section id="music" class="section">
       <div class="container card">
-        <h3>Music</h3>
-        <p>Hear Kaipo Mo’e on Spotify and Apple Music.</p>
+        <h2>Music</h2>
+        <p>Listen to Kaipo Mo’e on your favorite platform.</p>
 
         <div class="embeds">
           <!-- Spotify -->
@@ -84,30 +102,36 @@
       </div>
     </section>
 
+    <!-- ART (2×3 grid; responsive) -->
     <section id="art" class="section">
       <div class="container card">
-        <h3>Art</h3>
+        <h2>Art</h2>
         <div class="gallery">
-          <!-- Replace with real artwork when ready -->
-          <img src="/assets/images/hero-poster.jpg" alt="Artwork sample">
-          <img src="/assets/images/hero-poster.jpg" alt="Artwork sample">
-          <img src="/assets/images/hero-poster.jpg" alt="Artwork sample">
+          <!-- Replace these src paths with your artwork when ready -->
+          <img src="/assets/images/hero-poster.jpg" alt="Artwork 1">
+          <img src="/assets/images/hero-poster.jpg" alt="Artwork 2">
+          <img src="/assets/images/hero-poster.jpg" alt="Artwork 3">
+          <img src="/assets/images/hero-poster.jpg" alt="Artwork 4">
+          <img src="/assets/images/hero-poster.jpg" alt="Artwork 5">
+          <img src="/assets/images/hero-poster.jpg" alt="Artwork 6">
         </div>
       </div>
     </section>
 
+    <!-- CONTACT + SOCIALS (centered) -->
     <section id="contact" class="section">
-      <div class="container card">
-        <h3>Contact</h3>
-        <p>For bookings, collaborations, or just to say hi:</p>
-        <p><a class="btn" href="mailto:1kaipomoe@gmail.com">Email Me</a></p>
-        <p class="social">
-          <a class="icon" href="https://www.instagram.com/kaipomoe?igsh=NjZvbDQwcG85Ynhw&utm_source=qr" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
-          <a class="icon" href="https://www.youtube.com/@kaipomoe" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
-          <a class="icon" href="https://open.spotify.com/artist/7CrqF9bBDu5UC8iCuLqtOF?si=GAGpqmfVR2WZlEBFsKrFKw" target="_blank" rel="noopener"><i class="fab fa-spotify"></i></a>
-          <a class="icon" href="https://music.apple.com/us/artist/kaipo-moe/1469973347" target="_blank" rel="noopener"><i class="fab fa-apple"></i></a>
-          <a class="icon" href="https://www.tiktok.com/@kaipomoe" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
-        </p>
+      <div class="container card contact-card">
+        <h2>Contact</h2>
+        <p class="center">For bookings, collaborations, or just to say hi:</p>
+        <p class="center"><a class="btn" href="mailto:1kaipomoe@gmail.com">Email Me</a></p>
+
+        <div class="socials">
+          <a class="icon" href="https://www.instagram.com/kaipomoe?igsh=NjZvbDQwcG85Ynhw&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a class="icon" href="https://www.youtube.com/@kaipomoe" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a class="icon" href="https://open.spotify.com/artist/7CrqF9bBDu5UC8iCuLqtOF?si=GAGpqmfVR2WZlEBFsKrFKw" target="_blank" rel="noopener" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+          <a class="icon" href="https://music.apple.com/us/artist/kaipo-moe/1469973347" target="_blank" rel="noopener" aria-label="Apple Music"><i class="fab fa-apple"></i></a>
+          <a class="icon" href="https://www.tiktok.com/@kaipomoe" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
       </div>
     </section>
 
@@ -121,6 +145,15 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // tiny mobile menu toggle
+    const btn = document.querySelector('.nav-toggle');
+    const nav = document.getElementById('primary-nav');
+    btn?.addEventListener('click', () => {
+      const open = nav.style.display === 'block';
+      nav.style.display = open ? 'none' : 'block';
+      btn.setAttribute('aria-expanded', String(!open));
+    });
   </script>
 </body>
 </html>
