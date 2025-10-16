@@ -9,7 +9,7 @@
   --line: rgba(255,255,255,.09);
   --white: #ffffff;
   --muted: #a9b2c3;
-  --header-h: 64px;        /* synced via JS */
+  --header-h: 64px;
   --radius: 14px;
   --shadow: 0 10px 30px rgba(0,0,0,.35);
 }
@@ -27,27 +27,25 @@ body{
   font-size: 16px;
   line-height: 1.6;
   color: #ecf1ff;
-  background: linear-gradient(to bottom, var(--page), var(--page-2));
+
+  /* Scrolling gradient: light at top -> deep navy -> black */
+  background: linear-gradient(180deg,
+    var(--sky) 0%,
+    #27477a 22%,
+    var(--page) 55%,
+    #070c14 82%,
+    #000 100%
+  );
+  background-attachment: scroll;
 }
 h1,h2,h3{
   font-family: "Playfair Display", Georgia, serif;
   margin: 0 0 .75rem;
   line-height: 1.2;
 }
-h1{ font-size: clamp(2rem, 1.2rem + 3vw, 3.2rem); }
+h1{ font-size: clamp(1.8rem, 1rem + 3vw, 3rem); }
 h2{ font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem); }
 .lead{ color: var(--muted); margin-top: .25rem; }
-
-/* Top gradient backdrop */
-.top-gradient{
-  position: fixed;
-  inset: 0 0 auto 0;
-  height: 60vh; /* reaches into the hero */
-  background: linear-gradient(180deg, var(--sky) 0%, #27477a 35%, var(--page) 70%);
-  pointer-events: none;
-  z-index: 0;
-  opacity: .8;
-}
 
 /* Header */
 .header{
@@ -60,17 +58,17 @@ h2{ font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem); }
   transform: translateY(-12px);
   opacity: 0;
   transition: transform .35s ease, opacity .35s ease, background-color .35s ease, backdrop-filter .35s ease;
-  background: rgba(7,15,28,.0); /* start transparent */
+  background: rgba(7,15,28,.0);
   backdrop-filter: none;
 }
 .header.is-visible{
   opacity: 1;
   transform: translateY(0);
-  background: rgba(7,15,28,.85); /* semi-transparent over top/hero */
+  background: rgba(7,15,28,.7);
   backdrop-filter: blur(6px);
 }
 .header.is-solid{
-  background: #0a1526;       /* solid after hero */
+  background: #0a1526;
   backdrop-filter: none;
 }
 .nav{
@@ -79,10 +77,7 @@ h2{ font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem); }
   align-items: center;
   justify-content: space-between;
 }
-.nav .brand{
-  font-weight: 700;
-  letter-spacing: .02em;
-}
+.nav .brand{ font-weight: 700; letter-spacing: .02em; }
 
 /* Desktop links */
 .links a{
@@ -98,7 +93,7 @@ h2{ font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem); }
 }
 .links a:hover::after{ width:100%; }
 
-/* Mobile toggle (hidden desktop) */
+/* Mobile toggle */
 .nav-toggle{
   display:none;
   width: 42px; height: 34px;
@@ -126,19 +121,19 @@ h2{ font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem); }
 }
 .mobile-menu.open{ display:block; }
 
-/* Masthead (white logo zone under header) */
+/* Masthead (compact logo area under header) */
 .masthead{
   position: relative;
-  padding-top: calc(var(--header-h) + 8px); /* small gap below header */
+  padding-top: calc(var(--header-h) + 8px);
   padding-bottom: 0;
   display: grid;
   place-items: center;
-  height: 160px;          /* slim logo band */
-  margin-bottom: -80px;   /* lift hero up under it (no overlap) */
+  height: 160px;
+  margin-bottom: -80px; /* lift hero up beneath */
   z-index: 1;
 }
 .masthead .wordmark{
-  width: clamp(100px, 12vw, 220px); /* ~1/7 old size */
+  width: clamp(100px, 12vw, 220px);
   filter: drop-shadow(0 3px 18px rgba(0,0,0,.4));
 }
 
@@ -151,33 +146,38 @@ h2{ font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem); }
   border-top: 1px solid var(--line);
 }
 
-/* Hero (contained window) */
-.hero{ position: relative; isolation: isolate; padding: 2rem 0 3rem; }
+/* Hero (contained window; video shrinks to fit) */
+.hero{ position: relative; padding: 2rem 0 3rem; }
 .hero-window{
   position: relative;
   border: 1px solid var(--line); /* framed window */
-  overflow: hidden;              /* clean edges */
-  /* straight corners to match the earlier build */
+  background: #0b111c;          /* letterbox color behind video */
+  overflow: hidden;
 }
 .hero-video{
   display: block;
   width: 100%;
-  height: 64vh;           /* balanced height */
+  height: 64vh;
   max-height: 820px;
-  object-fit: cover;
+  object-fit: contain;      /* << no cropping */
+  object-position: center;
+  background: #0b111c;
 }
-.hero-copy{
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  padding: 1rem;
-  background: linear-gradient(180deg, rgba(8,14,26,0.0) 55%, rgba(8,14,26,.45) 100%);
-}
-.hero-copy h1{ margin-bottom: .8rem; text-shadow: 0 6px 24px rgba(0,0,0,.5); }
 
-/* Card + buttons */
+/* CTA group near bottom-center of hero */
+.hero-cta{
+  position: absolute;
+  left: 50%; bottom: 18px;
+  transform: translateX(-50%);
+  text-align: center;
+  padding: .25rem .5rem;
+}
+.hero-cta h1{
+  margin: 0 0 .6rem;
+  text-shadow: 0 6px 24px rgba(0,0,0,.55);
+}
+
+/* Card */
 .card{
   background: rgba(17,28,48,.6);
   border: 1px solid var(--line);
@@ -186,35 +186,43 @@ h2{ font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem); }
   padding: 1.25rem;
 }
 
-/* Buttons */
+/* Make Spotify embed half width */
+#music .card{ max-width: 560px; margin: 0 auto; }
+.music-embed{ width: 100%; }
+
+/* Buttons smaller & centered */
 .btn{
   display: inline-block;
-  padding: .8rem 1.25rem;
+  padding: .7rem 1.1rem;
   border-radius: 12px;
   background: linear-gradient(180deg, var(--gold), var(--gold-2));
   color: #1d1204;
   font-weight: 700;
   box-shadow: 0 8px 18px rgba(246,178,75,.25);
   transition: transform .12s ease, box-shadow .2s ease, filter .2s ease, background .25s ease;
+  min-width: 170px; /* narrower buttons */
+  text-align: center;
 }
 .btn:hover{
   transform: translateY(-2px);
   box-shadow: 0 12px 26px rgba(246,178,75,.35);
-  /* gold -> teal hover */
   background: linear-gradient(180deg, var(--teal), #44aeb0);
   color: #071015;
 }
 .btn-row{
   margin-top: 1rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: .75rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
+.btn-row-compact .btn{ min-width: 160px; }
 @media (max-width: 700px){
-  .btn-row{ grid-template-columns: 1fr; }
+  .btn-row{ flex-direction: column; align-items: center; }
+  .btn-row .btn{ width: 100%; max-width: 320px; }
 }
 
-/* The Island (poem) — stage */
+/* The Island (poem) — stage lives under hero */
 .island{
   position: relative;
   min-height: 100vh;
@@ -239,10 +247,11 @@ h2{ font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem); }
   transition: opacity .9s ease;
 }
 
-/* Lines are layered and crossfaded */
+/* Lines are layered and crossfaded, centered */
 .line{
   position: absolute;
-  left: 50%; transform: translateX(-50%);
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
   margin: 0;
   opacity: 0;
