@@ -19,18 +19,34 @@
   <!-- Top gradient backdrop -->
   <div class="top-gradient" aria-hidden="true"></div>
 
-  <!-- Header (reveals on first scroll, stays sticky, sits above logo area) -->
+  <!-- Header -->
   <header id="site-header" class="header">
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="#top">Kaipo Moʻe</a>
-      <div class="links">
+
+      <!-- Desktop links -->
+      <div class="links" id="nav-links">
         <a href="#home">Home</a>
         <a href="#island">The Island</a>
         <a href="#music">Music</a>
         <a href="#art">Art</a>
         <a href="#contact">Contact</a>
       </div>
+
+      <!-- Mobile toggle -->
+      <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
     </nav>
+
+    <!-- Mobile menu panel -->
+    <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+      <a href="#home">Home</a>
+      <a href="#island">The Island</a>
+      <a href="#music">Music</a>
+      <a href="#art">Art</a>
+      <a href="#contact">Contact</a>
+    </div>
   </header>
 
   <!-- Masthead: white logo area under header -->
@@ -38,29 +54,38 @@
     <img class="wordmark" src="assets/images/logo-top.png" alt="Kaipo Moʻe logo">
   </section>
 
-  <!-- Hero -->
   <main>
+    <!-- Hero (contained window, not full-bleed) -->
     <section id="home" class="hero" aria-label="Hero">
-      <video
-        class="hero-video"
-        src="assets/video/hero.mp4"
-        poster="assets/images/hero-poster.jpg"
-        playsinline
-        muted
-        loop
-        autoplay>
-      </video>
+      <div class="container">
+        <div class="hero-window">
+          <video
+            class="hero-video"
+            src="assets/video/hero.mp4"
+            poster="assets/images/hero-poster.jpg"
+            playsinline
+            muted
+            loop
+            autoplay>
+          </video>
 
-      <div class="hero-copy">
-        <h1>Enter the Island</h1>
-        <p><a class="btn" href="https://youtu.be/-4iri-fnqWo?si=0-OM_OJYbk8fIitu" target="_blank" rel="noopener">Watch the Full Video</a></p>
+          <div class="hero-copy">
+            <h1>Enter the Island</h1>
+            <p><a class="btn" href="https://youtu.be/-4iri-fnqWo?si=0-OM_OJYbk8fIitu" target="_blank" rel="noopener">Watch the Full Video</a></p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Poem -->
-    <section id="island" class="section island">
-      <div class="container island-wrap">
+    <!-- Divider -->
+    <div class="section-line" aria-hidden="true"></div>
+
+    <!-- Poem — KH-style sequence with ethereal wind -->
+    <section id="island" class="section island" aria-label="The Island Poem">
+      <div class="poem-stage">
         <h2 class="island-title">The Island</h2>
+
+        <!-- Lines render stacked; JS crossfades them -->
         <p class="line">The island of your mind</p>
         <p class="line">A wish you long to find,</p>
         <p class="line">A place where you can hide,</p>
@@ -70,6 +95,9 @@
         <p class="line">In the island of your mind.</p>
       </div>
     </section>
+
+    <!-- Divider -->
+    <div class="section-line" aria-hidden="true"></div>
 
     <!-- Music -->
     <section id="music" class="section">
@@ -90,6 +118,9 @@
       </div>
     </section>
 
+    <!-- Divider -->
+    <div class="section-line" aria-hidden="true"></div>
+
     <!-- Art -->
     <section id="art" class="section">
       <div class="container">
@@ -104,6 +135,9 @@
         </div>
       </div>
     </section>
+
+    <!-- Divider -->
+    <div class="section-line" aria-hidden="true"></div>
 
     <!-- Contact -->
     <section id="contact" class="section contact">
@@ -133,6 +167,7 @@
     <p>© <span id="year"></span> Kaipo Moʻe. All rights reserved.</p>
   </footer>
 
+  <!-- Scripts -->
   <script>
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -141,12 +176,13 @@
     const header = document.getElementById('site-header');
     const masthead = document.querySelector('.masthead');
     const hero = document.querySelector('.hero');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navToggle = document.getElementById('nav-toggle');
 
-    const headerHeight = 64; // keep in sync with CSS
+    const headerHeight = 64;
     document.documentElement.style.setProperty('--header-h', headerHeight + 'px');
 
     let revealed = false;
-
     function onScroll() {
       const y = window.scrollY || window.pageYOffset;
 
@@ -156,7 +192,7 @@
         revealed = true;
       }
 
-      // Switch from translucent to solid after passing hero
+      // Switch from translucent to solid after passing hero window
       const cutoff = masthead.offsetHeight + hero.offsetHeight - 10;
       if (y > cutoff) {
         header.classList.add('is-solid');
@@ -165,6 +201,141 @@
       }
     }
     window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Mobile menu
+    function closeMenu() {
+      mobileMenu.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('no-scroll');
+    }
+    navToggle.addEventListener('click', () => {
+      const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+      if (expanded) { closeMenu(); }
+      else {
+        mobileMenu.classList.add('open');
+        navToggle.setAttribute('aria-expanded', 'true');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('no-scroll');
+      }
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+    // ====== Poem: KH-style crossfade with ethereal wind on every line ======
+    (function(){
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const stage = document.querySelector('.poem-stage');
+      if (!stage) return;
+
+      const lines = Array.from(stage.querySelectorAll('.line'));
+      const title = stage.querySelector('.island-title');
+
+      function makeWindSVG(variant) {
+        // basic S-curve variants
+        const paths = [
+          'M -120 0 C -40 -30, 40 -30, 120 0',
+          'M -120 0 C -60 20, 60 -20, 120 0',
+          'M -120 0 C -40 30, 40 30, 120 0',
+          'M -120 0 C -80 -15, 80 -15, 120 0'
+        ];
+        const d = paths[variant % paths.length];
+        const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+        svg.setAttribute('class','wind');
+        svg.setAttribute('viewBox','-130 -50 260 100');
+        const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+        p.setAttribute('d', d);
+        p.setAttribute('fill','none');
+        p.setAttribute('stroke','rgba(158,194,255,0.07)'); // very subtle
+        p.setAttribute('stroke-width','2');
+        p.setAttribute('stroke-linecap','round');
+        svg.appendChild(p);
+        return svg;
+      }
+
+      // Layout: center everything, start hidden
+      function reset() {
+        stage.classList.remove('playing','fadeout');
+        lines.forEach(l => { l.className = 'line'; l.style.opacity = 0; });
+        title.style.opacity = 0;
+        // remove lingering winds
+        stage.querySelectorAll('.wind').forEach(w => w.remove());
+      }
+
+      function playSequence() {
+        if (prefersReduced) {
+          // Static fallback
+          title.style.opacity = 1;
+          lines.forEach(l => { l.style.opacity = 1; });
+          return;
+        }
+
+        stage.classList.add('playing');
+        // camera drift (will be handled in CSS via .playing)
+        let t = 0;
+        const fade = 900;     // ms
+        const hold = 2200;    // ms
+        const overlap = 400;  // ms
+
+        // Helper to show an element with fade-in
+        function showEl(el, delay) {
+          setTimeout(() => { el.classList.add('visible'); }, delay);
+        }
+        // Helper to hide an element with fade-out
+        function hideEl(el, delay) {
+          setTimeout(() => { el.classList.remove('visible'); }, delay);
+        }
+
+        // 1) Title
+        showEl(title, t);                     // fade in
+        t += 2500;                            // hold
+        hideEl(title, t - 600);               // start fading out before first line
+
+        // 2) Lines with crossfades + wind
+        lines.forEach((line, i) => {
+          const appearAt = t + i * (hold - overlap);
+          const disappearAt = appearAt + hold;
+
+          // Wind: begin a touch before line appears
+          setTimeout(() => {
+            const svg = makeWindSVG(i);
+            line.parentElement.insertBefore(svg, line);
+            svg.classList.add('wind-start');
+            // remove after animation (keep DOM light)
+            setTimeout(() => svg.remove(), fade + hold);
+          }, Math.max(0, appearAt - 200));
+
+          showEl(line, appearAt);       // fade in
+          hideEl(line, disappearAt);    // fade out (overlaps next)
+        });
+
+        // 3) Final line hold + dissolve background
+        const finalIn = t + (lines.length - 1) * (hold - overlap);
+        const finalOut = finalIn + hold + 1200; // linger a bit longer
+        // Keep final line visible longer
+        setTimeout(() => { lines.at(-1).classList.add('visible'); }, finalIn);
+        setTimeout(() => { stage.classList.add('fadeout'); }, finalOut);
+
+        // 4) Loop
+        const total = finalOut + 1600;  // allow fade to complete before restart
+        setTimeout(() => {
+          reset();
+          // slight pause before restarting for seamless loop
+          setTimeout(playSequence, 300);
+        }, total);
+      }
+
+      // Trigger when section enters viewport (once)
+      const section = document.getElementById('island');
+      const io = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          reset();
+          playSequence();
+          io.disconnect();
+        }
+      }, { threshold: 0.3 });
+      io.observe(section);
+    })();
   </script>
 </body>
 </html>
