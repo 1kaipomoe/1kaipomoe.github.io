@@ -16,9 +16,6 @@
 </head>
 <body>
 
-  <!-- Top gradient backdrop -->
-  <div class="top-gradient" aria-hidden="true"></div>
-
   <!-- Header -->
   <header id="site-header" class="header">
     <nav class="nav" aria-label="Primary">
@@ -27,7 +24,6 @@
       <!-- Desktop links -->
       <div class="links" id="nav-links">
         <a href="#home">Home</a>
-        <a href="#island">The Island</a>
         <a href="#music">Music</a>
         <a href="#art">Art</a>
         <a href="#contact">Contact</a>
@@ -42,20 +38,19 @@
     <!-- Mobile menu panel -->
     <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
       <a href="#home">Home</a>
-      <a href="#island">The Island</a>
       <a href="#music">Music</a>
       <a href="#art">Art</a>
       <a href="#contact">Contact</a>
     </div>
   </header>
 
-  <!-- Masthead: white logo area under header -->
+  <!-- Masthead: compact logo area under header -->
   <section id="top" class="masthead" aria-label="Logo">
     <img class="wordmark" src="assets/images/logo-top.png" alt="Kaipo Moʻe logo">
   </section>
 
   <main>
-    <!-- Hero (contained window, not full-bleed) -->
+    <!-- Hero (contained window, video shrinks to fit — no cropping) -->
     <section id="home" class="hero" aria-label="Hero">
       <div class="container">
         <div class="hero-window">
@@ -69,19 +64,21 @@
             autoplay>
           </video>
 
-          <div class="hero-copy">
+          <!-- CTA group near bottom-center -->
+          <div class="hero-cta">
             <h1>Enter the Island</h1>
-            <p><a class="btn" href="https://youtu.be/-4iri-fnqWo?si=0-OM_OJYbk8fIitu" target="_blank" rel="noopener">Watch the Full Video</a></p>
+            <p>
+              <a class="btn" href="https://youtu.be/-4iri-fnqWo?si=0-OM_OJYbk8fIitu" target="_blank" rel="noopener">
+                Watch the Full Video
+              </a>
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Divider -->
-    <div class="section-line" aria-hidden="true"></div>
-
-    <!-- Poem — KH-style sequence with ethereal wind -->
-    <section id="island" class="section island" aria-label="The Island Poem">
+    <!-- Poem — KH-style sequence with ethereal wind (now part of Home, under hero) -->
+    <section id="poem" class="section island" aria-label="The Island Poem">
       <div class="poem-stage">
         <h2 class="island-title">The Island</h2>
 
@@ -106,11 +103,13 @@
         <p class="lead">Listen to Kaipo Moʻe on your favorite platform.</p>
 
         <div class="card">
-          <!-- Spotify only -->
-          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/7CrqF9bBDu5UC8iCuLqtOF?utm_source=oembed"
-            width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          <!-- Spotify only (half-width via CSS) -->
+          <div class="music-embed">
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/7CrqF9bBDu5UC8iCuLqtOF?utm_source=oembed"
+              width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
 
-          <div class="btn-row">
+          <div class="btn-row btn-row-compact">
             <a class="btn" href="https://open.spotify.com/artist/7CrqF9bBDu5UC8iCuLqtOF?si=GAGpqmfVR2WZlEBFsKrFKw" target="_blank" rel="noopener">Listen on Spotify</a>
             <a class="btn" href="https://music.apple.com/us/artist/kaipo-moe/1469973347" target="_blank" rel="noopener">Listen on Apple Music</a>
           </div>
@@ -185,14 +184,10 @@
     let revealed = false;
     function onScroll() {
       const y = window.scrollY || window.pageYOffset;
-
-      // Reveal header on first meaningful scroll
       if (!revealed && y > 10) {
         header.classList.add('is-visible');
         revealed = true;
       }
-
-      // Switch from translucent to solid after passing hero window
       const cutoff = masthead.offsetHeight + hero.offsetHeight - 10;
       if (y > cutoff) {
         header.classList.add('is-solid');
@@ -232,7 +227,6 @@
       const title = stage.querySelector('.island-title');
 
       function makeWindSVG(variant) {
-        // basic S-curve variants
         const paths = [
           'M -120 0 C -40 -30, 40 -30, 120 0',
           'M -120 0 C -60 20, 60 -20, 120 0',
@@ -246,87 +240,71 @@
         const p = document.createElementNS('http://www.w3.org/2000/svg','path');
         p.setAttribute('d', d);
         p.setAttribute('fill','none');
-        p.setAttribute('stroke','rgba(158,194,255,0.07)'); // very subtle
+        p.setAttribute('stroke','rgba(158,194,255,0.07)');
         p.setAttribute('stroke-width','2');
         p.setAttribute('stroke-linecap','round');
         svg.appendChild(p);
         return svg;
       }
 
-      // Layout: center everything, start hidden
       function reset() {
         stage.classList.remove('playing','fadeout');
         lines.forEach(l => { l.className = 'line'; l.style.opacity = 0; });
         title.style.opacity = 0;
-        // remove lingering winds
         stage.querySelectorAll('.wind').forEach(w => w.remove());
       }
 
+      function showEl(el, delay){ setTimeout(() => el.classList.add('visible'), delay); }
+      function hideEl(el, delay){ setTimeout(() => el.classList.remove('visible'), delay); }
+
       function playSequence() {
         if (prefersReduced) {
-          // Static fallback
           title.style.opacity = 1;
-          lines.forEach(l => { l.style.opacity = 1; });
+          lines.forEach(l => l.style.opacity = 1);
           return;
         }
-
         stage.classList.add('playing');
-        // camera drift (will be handled in CSS via .playing)
+
         let t = 0;
-        const fade = 900;     // ms
-        const hold = 2200;    // ms
-        const overlap = 400;  // ms
+        const fade = 900;
+        const hold = 2200;
+        const overlap = 400;
 
-        // Helper to show an element with fade-in
-        function showEl(el, delay) {
-          setTimeout(() => { el.classList.add('visible'); }, delay);
-        }
-        // Helper to hide an element with fade-out
-        function hideEl(el, delay) {
-          setTimeout(() => { el.classList.remove('visible'); }, delay);
-        }
+        // Title
+        showEl(title, t);
+        t += 2500;
+        hideEl(title, t - 600);
 
-        // 1) Title
-        showEl(title, t);                     // fade in
-        t += 2500;                            // hold
-        hideEl(title, t - 600);               // start fading out before first line
-
-        // 2) Lines with crossfades + wind
+        // Lines with crossfades + wind
         lines.forEach((line, i) => {
           const appearAt = t + i * (hold - overlap);
           const disappearAt = appearAt + hold;
 
-          // Wind: begin a touch before line appears
           setTimeout(() => {
             const svg = makeWindSVG(i);
             line.parentElement.insertBefore(svg, line);
             svg.classList.add('wind-start');
-            // remove after animation (keep DOM light)
             setTimeout(() => svg.remove(), fade + hold);
           }, Math.max(0, appearAt - 200));
 
-          showEl(line, appearAt);       // fade in
-          hideEl(line, disappearAt);    // fade out (overlaps next)
+          showEl(line, appearAt);
+          hideEl(line, disappearAt);
         });
 
-        // 3) Final line hold + dissolve background
+        // Final line extra hold + dissolve, then loop
         const finalIn = t + (lines.length - 1) * (hold - overlap);
-        const finalOut = finalIn + hold + 1200; // linger a bit longer
-        // Keep final line visible longer
-        setTimeout(() => { lines.at(-1).classList.add('visible'); }, finalIn);
+        const finalOut = finalIn + hold + 1200;
+        setTimeout(() => { lines[lines.length - 1].classList.add('visible'); }, finalIn);
         setTimeout(() => { stage.classList.add('fadeout'); }, finalOut);
 
-        // 4) Loop
-        const total = finalOut + 1600;  // allow fade to complete before restart
+        const total = finalOut + 1600;
         setTimeout(() => {
           reset();
-          // slight pause before restarting for seamless loop
           setTimeout(playSequence, 300);
         }, total);
       }
 
-      // Trigger when section enters viewport (once)
-      const section = document.getElementById('island');
+      const section = document.getElementById('poem');
       const io = new IntersectionObserver(([entry]) => {
         if (entry.isIntersecting) {
           reset();
