@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kaipo Moʻe</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+  <!-- Fonts: Cinzel Decorative for marquee, Playfair for headings, Inter for UI -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-  <!-- Icons (FA Free) -->
+  <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <!-- Styles -->
@@ -44,26 +44,24 @@
     </div>
   </header>
 
-  <!-- Compact top logo area under header -->
+  <!-- Compact top logo -->
   <section id="top" class="masthead" aria-label="Logo">
     <img class="wordmark" src="assets/images/logo-top.png" alt="Kaipo Moʻe logo">
   </section>
 
   <main>
-    <!-- HERO (near full-height, not cropped; faint line frame; CTA bottom-center) -->
+    <!-- HERO (edge-to-edge; desktop contain, mobile slight crop with scale down) -->
     <section id="home" class="hero" aria-label="Hero">
       <div class="container">
-        <div class="hero-edge">
-          <div class="hero-media">
-            <video
-              class="hero-video"
-              src="assets/video/hero.mp4"
-              poster="assets/images/hero-poster.jpg"
-              playsinline muted loop autoplay>
-            </video>
-          </div>
+        <div class="hero-media">
+          <video
+            class="hero-video"
+            src="assets/video/hero.mp4"
+            poster="assets/images/hero-poster.jpg"
+            playsinline muted loop autoplay>
+          </video>
 
-          <!-- CTA group near bottom-center -->
+          <!-- CTA near bottom-center -->
           <div class="hero-cta">
             <h1>Enter the Island</h1>
             <p>
@@ -76,18 +74,23 @@
       </div>
     </section>
 
-    <!-- POEM MARQUEE (single huge line, vertical stretch, 34s loop) -->
+    <!-- POEM MARQUEE (Cinzel, outlined, slim, extra-tall stretch, slower) -->
     <section id="marquee" class="section marquee" aria-label="Poem Banner">
       <div class="marquee-viewport" aria-hidden="true">
         <div class="marquee-track">
+          <!-- COPY 1 -->
           <span class="marquee-text">
-            THE ISLAND OF YOUR MIND · A WISH YOU LONG TO FIND · A PLACE WHERE YOU CAN HIDE · THE MIRROR OF YOUR EYES · BENEATH A STRANGER SKY · THAT FEELING NEVER DIES · IN THE ISLAND OF YOUR MIND
+            <span class="stroke">THE ISLAND OF YOUR MIND · A WISH YOU LONG TO FIND · A PLACE WHERE YOU CAN HIDE · THE MIRROR OF YOUR EYES · BENEATH A STRANGER SKY · THAT FEELING NEVER DIES · IN THE ISLAND OF YOUR MIND · </span>
+            <span class="glow">THE ISLAND OF YOUR MIND · A WISH YOU LONG TO FIND · A PLACE WHERE YOU CAN HIDE · THE MIRROR OF YOUR EYES · BENEATH A STRANGER SKY · THAT FEELING NEVER DIES · IN THE ISLAND OF YOUR MIND · </span>
           </span>
+          <!-- COPY 2 (duplicate for seamless loop) -->
           <span class="marquee-text">
-            THE ISLAND OF YOUR MIND · A WISH YOU LONG TO FIND · A PLACE WHERE YOU CAN HIDE · THE MIRROR OF YOUR EYES · BENEATH A STRANGER SKY · THAT FEELING NEVER DIES · IN THE ISLAND OF YOUR MIND
+            <span class="stroke">THE ISLAND OF YOUR MIND · A WISH YOU LONG TO FIND · A PLACE WHERE YOU CAN HIDE · THE MIRROR OF YOUR EYES · BENEATH A STRANGER SKY · THAT FEELING NEVER DIES · IN THE ISLAND OF YOUR MIND · </span>
+            <span class="glow">THE ISLAND OF YOUR MIND · A WISH YOU LONG TO FIND · A PLACE WHERE YOU CAN HIDE · THE MIRROR OF YOUR EYES · BENEATH A STRANGER SKY · THAT FEELING NEVER DIES · IN THE ISLAND OF YOUR MIND · </span>
           </span>
         </div>
       </div>
+
       <!-- Accessible static poem for screen readers/SEO -->
       <p class="sr-only">
         The island of your mind. A wish you long to find, a place where you can hide, the mirror of your eyes. Beneath a stranger sky, that feeling never dies, in the island of your mind.
@@ -96,12 +99,14 @@
 
     <div class="section-line" aria-hidden="true"></div>
 
-    <!-- MUSIC -->
+    <!-- MUSIC (clean + centered) -->
     <section id="music" class="section">
       <div class="container">
-        <h2 class="center">Music — listen to Kaipo Moʻe on all platforms</h2>
+        <h2 class="center">Music</h2>
+        <p class="center lead">Listen to Kaipo Moʻe</p>
 
         <div class="card">
+          <!-- Spotify only -->
           <div class="music-embed">
             <iframe style="border-radius:12px"
               src="https://open.spotify.com/embed/artist/7CrqF9bBDu5UC8iCuLqtOF?utm_source=oembed"
@@ -114,36 +119,13 @@
             <a class="btn" href="https://open.spotify.com/artist/7CrqF9bBDu5UC8iCuLqtOF?si=GAGpqmfVR2WZlEBFsKrFKw" target="_blank" rel="noopener">Listen on Spotify</a>
             <a class="btn" href="https://music.apple.com/us/artist/kaipo-moe/1469973347" target="_blank" rel="noopener">Listen on Apple Music</a>
           </div>
-
-          <!-- Platform icon row (PLACEHOLDER LINKS — swap your real artist URLs) -->
-          <div class="platforms">
-            <a class="platform" href="#" target="_blank" rel="noopener" aria-label="YouTube Music">
-              <i class="fab fa-youtube"></i><span>YouTube Music</span>
-            </a>
-            <a class="platform" href="#" target="_blank" rel="noopener" aria-label="Amazon Music">
-              <i class="fab fa-amazon"></i><span>Amazon</span>
-            </a>
-            <a class="platform" href="#" target="_blank" rel="noopener" aria-label="Tidal">
-              <i class="fa-solid fa-music"></i><span>Tidal</span>
-            </a>
-            <a class="platform" href="#" target="_blank" rel="noopener" aria-label="Deezer">
-              <i class="fa-solid fa-wave-square"></i><span>Deezer</span>
-            </a>
-            <a class="platform" href="#" target="_blank" rel="noopener" aria-label="SoundCloud">
-              <i class="fab fa-soundcloud"></i><span>SoundCloud</span>
-            </a>
-            <a class="platform" href="#" target="_blank" rel="noopener" aria-label="Bandcamp">
-              <i class="fab fa-bandcamp"></i><span>Bandcamp</span>
-            </a>
-          </div>
-          <!-- /platforms -->
         </div>
       </div>
     </section>
 
     <div class="section-line" aria-hidden="true"></div>
 
-    <!-- ART (2 × 3 grid; swap in your images when ready) -->
+    <!-- ART (2 × 3 grid; placeholders ok) -->
     <section id="art" class="section">
       <div class="container">
         <h2>Art</h2>
