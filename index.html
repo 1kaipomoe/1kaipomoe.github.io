@@ -6,7 +6,7 @@
   <title>Kaipo Moʻe</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&family=Oswald:wght@600&display=swap" rel="stylesheet">
 
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -44,13 +44,14 @@
     </div>
   </header>
 
-  <!-- Masthead: compact logo area under header -->
+  <!-- Compact top logo area under header -->
   <section id="top" class="masthead" aria-label="Logo">
+    <!-- You provide this file -->
     <img class="wordmark" src="assets/images/logo-top.png" alt="Kaipo Moʻe logo">
   </section>
 
   <main>
-    <!-- Hero (contained window, video shrinks to fit — no cropping) -->
+    <!-- HERO (video shrinks to fit — NOT cropped) -->
     <section id="home" class="hero" aria-label="Hero">
       <div class="container">
         <div class="hero-window">
@@ -58,10 +59,7 @@
             class="hero-video"
             src="assets/video/hero.mp4"
             poster="assets/images/hero-poster.jpg"
-            playsinline
-            muted
-            loop
-            autoplay>
+            playsinline muted loop autoplay>
           </video>
 
           <!-- CTA group near bottom-center -->
@@ -77,40 +75,38 @@
       </div>
     </section>
 
-    <!-- Poem Marquee Banner (under hero, replaces old poem section) -->
+    <!-- POEM MARQUEE (single huge line, right→left loop) -->
     <section id="marquee" class="section marquee" aria-label="Poem Banner">
-      <!-- Decorative marquee text for visuals -->
       <div class="marquee-viewport" aria-hidden="true">
         <div class="marquee-track">
           <span class="marquee-text">
-            THE ISLAND OF YOUR MIND &middot; A WISH YOU LONG TO FIND &middot; A PLACE WHERE YOU CAN HIDE &middot; THE MIRROR OF YOUR EYES &middot; BENEATH A STRANGER SKY &middot; THAT FEELING NEVER DIES &middot; IN THE ISLAND OF YOUR MIND
+            THE ISLAND OF YOUR MIND · A WISH YOU LONG TO FIND · A PLACE WHERE YOU CAN HIDE · THE MIRROR OF YOUR EYES · BENEATH A STRANGER SKY · THAT FEELING NEVER DIES · IN THE ISLAND OF YOUR MIND
           </span>
           <span class="marquee-text">
-            THE ISLAND OF YOUR MIND &middot; A WISH YOU LONG TO FIND &middot; A PLACE WHERE YOU CAN HIDE &middot; THE MIRROR OF YOUR EYES &middot; BENEATH A STRANGER SKY &middot; THAT FEELING NEVER DIES &middot; IN THE ISLAND OF YOUR MIND
+            THE ISLAND OF YOUR MIND · A WISH YOU LONG TO FIND · A PLACE WHERE YOU CAN HIDE · THE MIRROR OF YOUR EYES · BENEATH A STRANGER SKY · THAT FEELING NEVER DIES · IN THE ISLAND OF YOUR MIND
           </span>
         </div>
       </div>
-
-      <!-- Accessible/static poem for screen readers & SEO -->
       <p class="sr-only">
         The island of your mind. A wish you long to find, a place where you can hide, the mirror of your eyes. Beneath a stranger sky, that feeling never dies, in the island of your mind.
       </p>
     </section>
 
-    <!-- Divider -->
     <div class="section-line" aria-hidden="true"></div>
 
-    <!-- Music -->
+    <!-- MUSIC -->
     <section id="music" class="section">
       <div class="container">
         <h2>Music</h2>
         <p class="lead">Listen to Kaipo Moʻe on your favorite platform.</p>
 
         <div class="card">
-          <!-- Spotify only (half-width via CSS) -->
           <div class="music-embed">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/7CrqF9bBDu5UC8iCuLqtOF?utm_source=oembed"
-              width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <iframe style="border-radius:12px"
+              src="https://open.spotify.com/embed/artist/7CrqF9bBDu5UC8iCuLqtOF?utm_source=oembed"
+              width="100%" height="352" frameborder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"></iframe>
           </div>
 
           <div class="btn-row btn-row-compact">
@@ -121,10 +117,9 @@
       </div>
     </section>
 
-    <!-- Divider -->
     <div class="section-line" aria-hidden="true"></div>
 
-    <!-- Art -->
+    <!-- ART (2 × 3 grid; use placeholders until you upload) -->
     <section id="art" class="section">
       <div class="container">
         <h2>Art</h2>
@@ -139,10 +134,9 @@
       </div>
     </section>
 
-    <!-- Divider -->
     <div class="section-line" aria-hidden="true"></div>
 
-    <!-- Contact -->
+    <!-- CONTACT -->
     <section id="contact" class="section contact">
       <div class="container">
         <h2 class="center">Contact</h2>
@@ -159,6 +153,7 @@
           <a href="https://www.tiktok.com/@kaipomoe" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
         </p>
 
+        <!-- Bottom logo you provide -->
         <div class="logo-bottom">
           <img src="assets/images/logo-bottom.png" alt="Kaipo Moʻe logo">
         </div>
@@ -188,38 +183,32 @@
     let revealed = false;
     function onScroll() {
       const y = window.scrollY || window.pageYOffset;
-      if (!revealed && y > 10) {
-        header.classList.add('is-visible');
-        revealed = true;
-      }
+      if (!revealed && y > 10) { header.classList.add('is-visible'); revealed = true; }
       const cutoff = masthead.offsetHeight + hero.offsetHeight - 10;
-      if (y > cutoff) {
-        header.classList.add('is-solid');
-      } else {
-        header.classList.remove('is-solid');
-      }
+      if (y > cutoff) header.classList.add('is-solid');
+      else header.classList.remove('is-solid');
     }
     window.addEventListener('scroll', onScroll, { passive: true });
 
     // Mobile menu
-    function closeMenu() {
+    function closeMenu(){
       mobileMenu.classList.remove('open');
-      navToggle.setAttribute('aria-expanded', 'false');
-      mobileMenu.setAttribute('aria-hidden', 'true');
+      navToggle.setAttribute('aria-expanded','false');
+      mobileMenu.setAttribute('aria-hidden','true');
       document.body.classList.remove('no-scroll');
     }
     navToggle.addEventListener('click', () => {
       const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-      if (expanded) { closeMenu(); }
+      if (expanded) closeMenu();
       else {
         mobileMenu.classList.add('open');
-        navToggle.setAttribute('aria-expanded', 'true');
-        mobileMenu.setAttribute('aria-hidden', 'false');
+        navToggle.setAttribute('aria-expanded','true');
+        mobileMenu.setAttribute('aria-hidden','false');
         document.body.classList.add('no-scroll');
       }
     });
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
   </script>
 </body>
 </html>
