@@ -6,7 +6,7 @@
   <title>Kaipo Moʻe</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -77,20 +77,24 @@
       </div>
     </section>
 
-    <!-- Poem — KH-style sequence with ethereal wind (now part of Home, under hero) -->
-    <section id="poem" class="section island" aria-label="The Island Poem">
-      <div class="poem-stage">
-        <h2 class="island-title">The Island</h2>
-
-        <!-- Lines render stacked; JS crossfades them -->
-        <p class="line">The island of your mind</p>
-        <p class="line">A wish you long to find,</p>
-        <p class="line">A place where you can hide,</p>
-        <p class="line">The mirror of your eyes.</p>
-        <p class="line">Beneath a stranger sky,</p>
-        <p class="line">That feeling never dies,</p>
-        <p class="line">In the island of your mind.</p>
+    <!-- Poem Marquee Banner (under hero, replaces old poem section) -->
+    <section id="marquee" class="section marquee" aria-label="Poem Banner">
+      <!-- Decorative marquee text for visuals -->
+      <div class="marquee-viewport" aria-hidden="true">
+        <div class="marquee-track">
+          <span class="marquee-text">
+            THE ISLAND OF YOUR MIND &middot; A WISH YOU LONG TO FIND &middot; A PLACE WHERE YOU CAN HIDE &middot; THE MIRROR OF YOUR EYES &middot; BENEATH A STRANGER SKY &middot; THAT FEELING NEVER DIES &middot; IN THE ISLAND OF YOUR MIND
+          </span>
+          <span class="marquee-text">
+            THE ISLAND OF YOUR MIND &middot; A WISH YOU LONG TO FIND &middot; A PLACE WHERE YOU CAN HIDE &middot; THE MIRROR OF YOUR EYES &middot; BENEATH A STRANGER SKY &middot; THAT FEELING NEVER DIES &middot; IN THE ISLAND OF YOUR MIND
+          </span>
+        </div>
       </div>
+
+      <!-- Accessible/static poem for screen readers & SEO -->
+      <p class="sr-only">
+        The island of your mind. A wish you long to find, a place where you can hide, the mirror of your eyes. Beneath a stranger sky, that feeling never dies, in the island of your mind.
+      </p>
     </section>
 
     <!-- Divider -->
@@ -216,104 +220,6 @@
     });
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
-
-    // ====== Poem: KH-style crossfade with ethereal wind on every line ======
-    (function(){
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const stage = document.querySelector('.poem-stage');
-      if (!stage) return;
-
-      const lines = Array.from(stage.querySelectorAll('.line'));
-      const title = stage.querySelector('.island-title');
-
-      function makeWindSVG(variant) {
-        const paths = [
-          'M -120 0 C -40 -30, 40 -30, 120 0',
-          'M -120 0 C -60 20, 60 -20, 120 0',
-          'M -120 0 C -40 30, 40 30, 120 0',
-          'M -120 0 C -80 -15, 80 -15, 120 0'
-        ];
-        const d = paths[variant % paths.length];
-        const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
-        svg.setAttribute('class','wind');
-        svg.setAttribute('viewBox','-130 -50 260 100');
-        const p = document.createElementNS('http://www.w3.org/2000/svg','path');
-        p.setAttribute('d', d);
-        p.setAttribute('fill','none');
-        p.setAttribute('stroke','rgba(158,194,255,0.07)');
-        p.setAttribute('stroke-width','2');
-        p.setAttribute('stroke-linecap','round');
-        svg.appendChild(p);
-        return svg;
-      }
-
-      function reset() {
-        stage.classList.remove('playing','fadeout');
-        lines.forEach(l => { l.className = 'line'; l.style.opacity = 0; });
-        title.style.opacity = 0;
-        stage.querySelectorAll('.wind').forEach(w => w.remove());
-      }
-
-      function showEl(el, delay){ setTimeout(() => el.classList.add('visible'), delay); }
-      function hideEl(el, delay){ setTimeout(() => el.classList.remove('visible'), delay); }
-
-      function playSequence() {
-        if (prefersReduced) {
-          title.style.opacity = 1;
-          lines.forEach(l => l.style.opacity = 1);
-          return;
-        }
-        stage.classList.add('playing');
-
-        let t = 0;
-        const fade = 900;
-        const hold = 2200;
-        const overlap = 400;
-
-        // Title
-        showEl(title, t);
-        t += 2500;
-        hideEl(title, t - 600);
-
-        // Lines with crossfades + wind
-        lines.forEach((line, i) => {
-          const appearAt = t + i * (hold - overlap);
-          const disappearAt = appearAt + hold;
-
-          setTimeout(() => {
-            const svg = makeWindSVG(i);
-            line.parentElement.insertBefore(svg, line);
-            svg.classList.add('wind-start');
-            setTimeout(() => svg.remove(), fade + hold);
-          }, Math.max(0, appearAt - 200));
-
-          showEl(line, appearAt);
-          hideEl(line, disappearAt);
-        });
-
-        // Final line extra hold + dissolve, then loop
-        const finalIn = t + (lines.length - 1) * (hold - overlap);
-        const finalOut = finalIn + hold + 1200;
-        setTimeout(() => { lines[lines.length - 1].classList.add('visible'); }, finalIn);
-        setTimeout(() => { stage.classList.add('fadeout'); }, finalOut);
-
-        const total = finalOut + 1600;
-        setTimeout(() => {
-          reset();
-          setTimeout(playSequence, 300);
-        }, total);
-      }
-
-      const section = document.getElementById('poem');
-      const io = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-          reset();
-          playSequence();
-          io.disconnect();
-        }
-      }, { threshold: 0.3 });
-      io.observe(section);
-    })();
   </script>
 </body>
 </html>
