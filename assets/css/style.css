@@ -422,4 +422,23 @@ h2{font-size:clamp(1.4rem,1rem+1.5vw,2rem);}
   width: clamp(200px, 24vw, 440px); /* doubled from previous clamp(100px,12vw,220px) */
   filter: drop-shadow(0 3px 18px rgba(0, 0, 0, 0.4));
 }
-/
+//* === Mobile hero video: full width + less zoom === */
+@media (max-width: 768px) {
+  .hero {
+    height: 100dvh;            /* fill the viewport height */
+    background: #000;          /* hide any letterbox edges */
+    overflow: hidden;
+  }
+
+  .hero video {
+    position: static !important; /* undo absolute/center tricks on mobile */
+    display: block;
+    width: 100vw;                 /* fill screen horizontally */
+    height: 100dvh;               /* scale to viewport height */
+    object-fit: contain;          /* show more of the frame (less zoom) */
+    transform: none !important;   /* cancel any scale/translate */
+  }
+
+  /* If you have an overlay, keep it transparent on mobile */
+  .hero .video-overlay { background: transparent !important; }
+}
